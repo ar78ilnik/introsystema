@@ -29,7 +29,7 @@ object {
   padding: 0;
 }
 .body {
-  background-color: yellow;
+  background-color: white;
 }
 .main__h1 {
   font-size: 30px;
@@ -152,7 +152,8 @@ object {
   color: #000;
 }
 .slogan__link:hover {
-  color: #666;
+  /*color: #666;*/
+  color: white;
 }
 .flecha {
   width: 30px;
