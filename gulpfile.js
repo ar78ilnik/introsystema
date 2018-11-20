@@ -1,12 +1,12 @@
 var     gulp = require("gulp"),
-            less = require("gulp-less"),
+        less = require("gulp-less"),
  browserSync = require("browser-sync"),
-       plumber = require("gulp-plumber"),
-          csso = require("gulp-csso"),
-        rename = require("gulp-rename"),
-       postcss = require("gulp-postcss"),
+     plumber = require("gulp-plumber"),
+        csso = require("gulp-csso"),
+      rename = require("gulp-rename"),
+     postcss = require("gulp-postcss"),
 autoprefixer = require("autoprefixer"),
-                 del = require("del");
+         del = require("del");
  
 gulp.task("clean", function() {
     return del("dist");
@@ -14,6 +14,7 @@ gulp.task("clean", function() {
  
 gulp.task("copy", function() {
     return gulp.src([
+				"app/*.html",
         "app/fonts/**/*.{woff,woff2}",
         "app/img/**",
         "app/js/**"
@@ -40,12 +41,12 @@ gulp.task("less", function() {
 gulp.task("browser-sync", function() {
     browserSync({
         server: {
-            baseDir: "app"
+            baseDir: "dist"
         },
     });
 });
  
-gulp.task("watch", ["clean", "copy", "less", "browser-sync"], function() {
+gulp.task("watch", ["browser-sync", "clean", "copy", "less"], function() {
     gulp.watch("app/less/**/*.less", ["less"]);
     gulp.watch("app/*.html", browserSync.reload);
     gulp.watch("app/js/**/*.js", browserSync.reload);
