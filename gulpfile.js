@@ -37,7 +37,7 @@ gulp.task("less", function() {
     .pipe(gulp.dest("dist/css"))
     .pipe(browserSync.reload({stream: true}))
 });
- 
+
 gulp.task("browser-sync", function() {
     browserSync({
         server: {
@@ -46,7 +46,7 @@ gulp.task("browser-sync", function() {
     });
 });
  
-gulp.task("watch", ["browser-sync", "clean", "copy", "less"], function() {
+gulp.task("watch", ["clean", "copy", "less", "browser-sync"], function() {
     gulp.watch("app/less/**/*.less", ["less"]);
     gulp.watch("app/*.html", browserSync.reload);
     gulp.watch("app/js/**/*.js", browserSync.reload);
