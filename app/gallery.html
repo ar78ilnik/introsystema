@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Галерея</title>
+</head>
+<body class="body body--gallery">
+	<div class="overlay">
+		<div class="window">
+			Инженерное<br> оборудование,<br> сети<br> и системы
+		</div>	
+	</div>
+  <header class="page-header page-header_gallery page-header--closed">
+    <div class="wrapper">
+      <div class="page-header__top">
+        <a class="page-header__logo" href="index.html">
+            <span class="page-header__img">Интросистема</span>
+          </a>
+        <button class="page-header__button" type="button">Open</button>
+      </div>
+    </div>
+      <nav class="top-navigation top-navigation--closed top-navigation--nojs">
+        <ul class="top-navigation__list">
+          <li><a class="top-navigation__link active" href="index.html">Главная</a></li>
+          <li><a class="top-navigation__link" href="about.html">О компании</a></li>
+          <li><a class="top-navigation__link" href="project.html">Наши проекты</a></li>
+          <li><a class="top-navigation__link" href="contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="main main-gallery">
+		<h1 class="contents">То, чем владеем в совершенстве</h1>
+		<section class="gallery">
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile1.jpg">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile2.jpg">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile3.jpg">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile4.jpg" sizes="100vw">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile5.jpg" sizes="100vw">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile6.jpg" sizes="100vw">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile7.jpg" sizes="100vw">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile8.jpg" sizes="100vw">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile9.jpg" sizes="100vw">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile10.jpg" sizes="100vw">
+			</picture>
+			<picture class="picture">
+				<img class="picture-img" srcset="img/gallery/mobile11.jpg" sizes="100vw">
+			</picture>
+		</section>
+  </main>
+  <footer class="footer">
+  </footer>
+	<script>
+		function time() {
+			document.querySelector(".overlay").style.display = 'none';
+		}
+		setTimeout(time, 1000);
+	</script>
+  <script src="js/toggle.js"></script>
+</body>
+</html>

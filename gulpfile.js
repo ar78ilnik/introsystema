@@ -46,7 +46,7 @@ gulp.task("browser-sync", function() {
     });
 });
  
-gulp.task("watch", ["clean", "copy", "less", "browser-sync"], function() {
+gulp.task("watch", ["less", "browser-sync"], function() {
     gulp.watch("app/less/**/*.less", ["less"]);
     gulp.watch("app/*.html", browserSync.reload);
     gulp.watch("app/js/**/*.js", browserSync.reload);
