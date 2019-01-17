@@ -7,7 +7,8 @@
   <title>Наши проекты</title>
 </head>
 <body class="body">
-  <header class="page-header--noindex page-header--closed-noindex page-header--activity">
+  <header class="page-header--noindex">
+		<div class="top-wrapper">
     <div class="wrapper">
       <div class="page-header__top">
         <a class="page-header__logo" href="index.html">
@@ -18,10 +19,12 @@
     </div>
       <nav class="top-navigation top-navigation--closed top-navigation--nojs">
         <ul class="top-navigation__list">
-          <li><a class="top-navigation__link active" href="index.html">Главная</a></li>
-          <li><a class="top-navigation__link" href="contacts.html">Контакты</a></li>
+          <li><a class="top-navigation__link top-navigation__link_one" href="index.html">Главная</a></li>
+					<li><a class="top-navigation__link top-navigation__link_two" href="gallery.html">Галерея</a></li>
+          <li><a class="top-navigation__link top-navigation__link_three" href="contacts.html">О компании</a></li>
         </ul>
       </nav>
+		</div>
 </header>
 		<div class="slogan page-header__slogan-noindex">
 				<dl class="slogan__project">
@@ -34,41 +37,6 @@
 					<dd class="slogan__def"><a class="slogan__link" href="#reds">Наружные сети</a></dd>
 				</dl>
 		</div>
-		<!--<div class="flecha">
-			<svg width="30" height="60">
-				<line id="line1" x1="15" y1="10" x2="15" y2="50" stroke="black" stroke-width="2">
-					<animate
-					xlink:href="#line1"
-					attributeName="y2"
-					from="50"
-					to="60"
-					dur="1s"
-					begin="1s"
-					repeatCount="indefinite"/>
-				</line>
-				<line id="line2" x1="25" y1="30" x2="15" y2="50" stroke="black" stroke-width="2"/>
-					<animate
-					xlink:href="#line2"
-					attributeName="y2"
-					from="50"
-					to="60"
-					dur="1s"
-					begin="1s"
-					repeatCount="indefinite"/>
-				</line>
-				<line id="line3" x1="5" y1="30" x2="15" y2="50" stroke="black" stroke-width="2"/>
-				<animate
-					xlink:href="#line3"
-					attributeName="y2"
-					from="50"
-					to="60"
-					dur="1s"
-					begin="1s"
-					repeatCount="indefinite"/>
-				</line>
-			</svg>
-		</div>-->
-  
   <main class="main main-activity">
 		<section class="activity">
 				<article class="heating article">
@@ -177,6 +145,6 @@
   <footer class="footer">
   </footer>
   <script src="js/toggle.js"></script>
-	<a href="#" title="Вернуться наверх" class="buttonup"><img src="img/up-arrow.png"></a>
+	<!--<a href="#" title="Вернуться наверх" class="buttonup"><img src="img/up-arrow.png"></a>-->
 </body>
 </html>
