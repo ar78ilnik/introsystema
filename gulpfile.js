@@ -11,7 +11,7 @@ autoprefixer = require("autoprefixer"),
 gulp.task("clean", function() {
     return del("dist");
 });
- 
+
 gulp.task("copy", function() {
     return gulp.src([
 				"app/*.html",
@@ -23,7 +23,13 @@ gulp.task("copy", function() {
     })
     .pipe(gulp.dest("dist"));
 });
- 
+
+gulp.task("html", function() {
+	gulp.src("app/*.html")
+	.pipe(gulp.dest("dist"))
+	.pipe(browserSync.reload({stream: true}))
+});
+
 gulp.task("less", function() {
     return gulp.src("app/less/style.less")
     .pipe(plumber())
@@ -48,6 +54,6 @@ gulp.task("browser-sync", function() {
  
 gulp.task("watch", ["less", "browser-sync"], function() {
     gulp.watch("app/less/**/*.less", ["less"]);
-    gulp.watch("app/*.html", browserSync.reload);
+    gulp.watch("app/*.html", ["html"]);
     gulp.watch("app/js/**/*.js", browserSync.reload);
 });
