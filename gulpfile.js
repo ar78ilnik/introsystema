@@ -1,6 +1,8 @@
-var     gulp = require("gulp"),
+"use strict";
+const   gulp = require("gulp"),
+        util = require("gulp-util"),
         less = require("gulp-less"),
- browserSync = require("browser-sync"),
+ browserSync = require("browser-sync").create(),
      plumber = require("gulp-plumber"),
         csso = require("gulp-csso"),
       rename = require("gulp-rename"),
@@ -11,6 +13,10 @@ autoprefixer = require("autoprefixer"),
 gulp.task("clean", function() {
     return del("dist");
 });
+
+/*function clean() {
+    return del(["dist"]);
+}*/
 
 gulp.task("copy", function() {
     return gulp.src([
@@ -45,14 +51,14 @@ gulp.task("less", function() {
 });
 
 gulp.task("browser-sync", function() {
-    browserSync({
+    browserSync.init({
         server: {
             baseDir: "dist"
         },
     });
 });
  
-gulp.task("watch", ["less", "browser-sync"], function() {
+gulp.task("watch", gulp.series("clean", "copy", "less", "browser-sync"), function() {
     gulp.watch("app/less/**/*.less", ["less"]);
     gulp.watch("app/*.html", ["html"]);
     gulp.watch("app/js/**/*.js", browserSync.reload);
