@@ -1,6 +1,5 @@
 "use strict";
 const   gulp = require("gulp"),
-        util = require("gulp-util"),
         less = require("gulp-less"),
  browserSync = require("browser-sync").create(),
      plumber = require("gulp-plumber"),
@@ -58,8 +57,8 @@ gulp.task("browser-sync", function() {
     });
 });
  
-gulp.task("watch", gulp.series("clean", "copy", "less", "browser-sync"), function() {
-    gulp.watch("app/less/**/*.less", ["less"]);
-    gulp.watch("app/*.html", ["html"]);
+gulp.task("watch", ["clean", "less", "copy", "browser-sync"], function() {
+    gulp.watch("app/less/**/*.less", ["less"]),
+    gulp.watch("app/*.html", ["html"]),
     gulp.watch("app/js/**/*.js", browserSync.reload);
 });
