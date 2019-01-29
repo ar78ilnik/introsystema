@@ -1,6 +1,7 @@
 "use strict";
 const   gulp = require("gulp"),
         less = require("gulp-less"),
+       debug = require("gulp-debug"),
  browserSync = require("browser-sync").create(),
      plumber = require("gulp-plumber"),
         csso = require("gulp-csso"),
@@ -13,13 +14,32 @@ gulp.task("clean", function() {
     return del("dist");
 });
 
-/*function clean() {
-    return del(["dist"]);
-}*/
+gulp.task("html", function() {
+	return gulp.src("app/*.html")
+	.pipe(gulp.dest("dist"))
+	.pipe(browserSync.reload())
+});
+
+gulp.task("less", function() {
+    return gulp.src("app/less/style.less")
+    .pipe(plumber())
+    .pipe(debug({title: "src"}))
+    .pipe(less())
+    .pipe(debug({title: "less"}))
+    .pipe(postcss([
+        autoprefixer()
+    ]))
+    .pipe(gulp.dest("dist/css"))
+    .pipe(csso())
+    .pipe(rename("style.min.css"))
+    .pipe(debug({title: "rename"}))
+    .pipe(gulp.dest("dist/css"))
+    .pipe(browserSync.reload({stream: true}))
+});
 
 gulp.task("copy", function() {
     return gulp.src([
-				"app/*.html",
+        "app/*.html",
         "app/fonts/**/*.{woff,woff2}",
         "app/img/**",
         "app/js/**"
@@ -27,26 +47,6 @@ gulp.task("copy", function() {
         base: "app"
     })
     .pipe(gulp.dest("dist"));
-});
-
-gulp.task("html", function() {
-	gulp.src("app/*.html")
-	.pipe(gulp.dest("dist"))
-	.pipe(browserSync.reload({stream: true}))
-});
-
-gulp.task("less", function() {
-    return gulp.src("app/less/style.less")
-    .pipe(plumber())
-    .pipe(less())
-    .pipe(postcss([
-        autoprefixer()
-    ]))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(csso())
-    .pipe(rename("style.min.css"))
-    .pipe(gulp.dest("dist/css"))
-    .pipe(browserSync.reload({stream: true}))
 });
 
 gulp.task("browser-sync", function() {
@@ -57,8 +57,10 @@ gulp.task("browser-sync", function() {
     });
 });
  
-gulp.task("watch", ["clean", "less", "copy", "browser-sync"], function() {
-    gulp.watch("app/less/**/*.less", ["less"]),
-    gulp.watch("app/*.html", ["html"]),
+gulp.task("watch", function() {
+    gulp.watch("app/less/**/*.less", gulp.series("less")),
+    gulp.watch("app/*.html", gulp.series("html")),
     gulp.watch("app/js/**/*.js", browserSync.reload);
 });
+
+gulp.task("build", gulp.series("clean", "less", "copy", "browser-sync", "watch"));
