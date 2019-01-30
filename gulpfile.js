@@ -2,7 +2,7 @@
 const   gulp = require("gulp"),
         less = require("gulp-less"),
        debug = require("gulp-debug"),
- browserSync = require("browser-sync").create(),
+ bs = require("browser-sync").create(),
      plumber = require("gulp-plumber"),
         csso = require("gulp-csso"),
       rename = require("gulp-rename"),
@@ -15,9 +15,9 @@ gulp.task("clean", function() {
 });
 
 gulp.task("html", function() {
-	return gulp.src("app/*.html")
+	return gulp.src("app/*.html", {since: gulp.lastRun("html")})
+    .pipe(debug({title: "html"}))
 	.pipe(gulp.dest("dist"))
-	.pipe(browserSync.reload())
 });
 
 gulp.task("less", function() {
@@ -34,7 +34,7 @@ gulp.task("less", function() {
     .pipe(rename("style.min.css"))
     .pipe(debug({title: "rename"}))
     .pipe(gulp.dest("dist/css"))
-    .pipe(browserSync.reload({stream: true}))
+    .pipe(bs.reload({stream: true}))
 });
 
 gulp.task("copy", function() {
@@ -44,23 +44,24 @@ gulp.task("copy", function() {
         "app/img/**",
         "app/js/**"
     ], {
-        base: "app"
+        base: "app", 
     })
     .pipe(gulp.dest("dist"));
 });
 
-gulp.task("browser-sync", function() {
-    browserSync.init({
-        server: {
-            baseDir: "dist"
-        },
+gulp.task("bs", function() {
+    bs.init({
+        server: "dist"
     });
-});
- 
-gulp.task("watch", function() {
-    gulp.watch("app/less/**/*.less", gulp.series("less")),
-    gulp.watch("app/*.html", gulp.series("html")),
-    gulp.watch("app/js/**/*.js", browserSync.reload);
+    bs.watch("app/*.html").on("change", bs.reload);
 });
 
-gulp.task("build", gulp.series("clean", "less", "copy", "browser-sync", "watch"));
+
+
+gulp.task("build", gulp.series("clean", "copy", "less", "bs"));
+
+/*gulp.task("watch", function() {*/
+    gulp.watch("app/less/**/*.less", gulp.series("less")),
+    gulp.watch("app/*.html", gulp.series("html")),
+    gulp.watch("app/js/**/*.js", bs.reload);
+/*});*/
