@@ -2,7 +2,7 @@
 const   gulp = require("gulp"),
         less = require("gulp-less"),
        debug = require("gulp-debug"),
- bs = require("browser-sync").create(),
+          bs = require("browser-sync").create(),
      plumber = require("gulp-plumber"),
         csso = require("gulp-csso"),
       rename = require("gulp-rename"),
@@ -14,10 +14,16 @@ gulp.task("clean", function() {
     return del("dist");
 });
 
-gulp.task("html", function() {
-	return gulp.src("app/*.html", {since: gulp.lastRun("html")})
-    .pipe(debug({title: "html"}))
-	.pipe(gulp.dest("dist"))
+gulp.task("copy", function() {
+    return gulp.src([
+        "app/*.html",
+        "app/fonts/**/*.{woff,woff2}",
+        "app/img/**",
+        "app/js/**"
+    ], {
+        base: "app", 
+    })
+    .pipe(gulp.dest("dist"));
 });
 
 gulp.task("less", function() {
@@ -37,16 +43,16 @@ gulp.task("less", function() {
     .pipe(bs.reload({stream: true}))
 });
 
-gulp.task("copy", function() {
-    return gulp.src([
-        "app/*.html",
-        "app/fonts/**/*.{woff,woff2}",
-        "app/img/**",
-        "app/js/**"
-    ], {
-        base: "app", 
-    })
-    .pipe(gulp.dest("dist"));
+gulp.task("js", function() {
+    return gulp.src("app/js/*.js", {since: gulp.lastRun("js")})
+    .pipe(gulp.dest("dist/js"))
+    .pipe(bs.reload({stream: true}))
+});
+
+gulp.task("html", function() {
+	return gulp.src("app/*.html", {since: gulp.lastRun("html")})
+    .pipe(debug({title: "html"}))
+	.pipe(gulp.dest("dist"))
 });
 
 gulp.task("bs", function() {
@@ -54,14 +60,13 @@ gulp.task("bs", function() {
         server: "dist"
     });
     bs.watch("app/*.html").on("change", bs.reload);
+    bs.watch("app/js/*.js").on("change", bs.reload);
 });
 
 
 
-gulp.task("build", gulp.series("clean", "copy", "less", "bs"));
+gulp.task("build", gulp.series("clean", "copy", "less", "js", "html", "bs"));
 
-/*gulp.task("watch", function() {*/
     gulp.watch("app/less/**/*.less", gulp.series("less")),
     gulp.watch("app/*.html", gulp.series("html")),
-    gulp.watch("app/js/**/*.js", bs.reload);
-/*});*/
+    gulp.watch("app/js/**/*.js", gulp.series("js"));

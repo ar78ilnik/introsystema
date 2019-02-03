@@ -1,3 +1,4 @@
+"use strict";
 var navMain = document.querySelector(".top-navigation");
 var navToggle = document.querySelector(".page-header__button");
 var noindex = document.querySelector(".page-header--noindex");

@@ -1,0 +1,1 @@
+var articles = document.getElementsByClassName("article");
