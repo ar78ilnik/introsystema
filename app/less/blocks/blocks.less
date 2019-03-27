@@ -1,6 +1,7 @@
 .bloks {
 	background-color: #f0f0f0;
 	padding-top: 25px;
+    margin-bottom: 20px;
 }
 .bloks-item {
 	padding-bottom: 52px;
@@ -21,11 +22,22 @@
 @media screen and (min-width: 660px) {
 	.bloks {
 		display: flex;
-		flex-wrap: wrap;
+        flex-wrap: wrap;
 		justify-content: space-around;
-		align-content: center;
 	}
 	.bloks-item {
 		width: 45%;
 	}
+    .bloks-item:nth-child(3) {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .bloks-item:nth-child(3) .bloks-item__img {
+        width: 45%;
+    }
+    .blocks-item__div {
+        width: 45%;
+    }
 }
